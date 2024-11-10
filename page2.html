@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="no-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Page</title>
+    <link rel="stylesheet" href="page2.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Enter Info</h1>
+            <form id="emailForm" onsubmit="sendEmail(event)">
+                <div class="form-group">
+                    <textarea 
+                        id="userInput"
+                        placeholder="Enter your information here..."
+                        rows="10"
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("A11B-iwvlOD5u9pa0"); // Update to your actual public key
+        })();
+
+        function sendEmail(e) {
+            e.preventDefault();
+            
+            const userInput = document.getElementById('userInput').value;
+            
+            // EmailJS send parameters
+            const templateParams = {
+                message: userInput,
+                to_email: 'notsurprised1234@gmail.com'
+            };
+
+            // Send email using EmailJS
+            emailjs.send('service_suj7x0k', 'template_e74o835', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    document.getElementById('emailForm').reset();
+                    alert('Information sent successfully!');
+                    window.location.href = "./index.html";
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send information. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
